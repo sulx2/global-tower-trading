@@ -1,0 +1,5 @@
+Company Name: GLOBAL TOWER FOR TRADING
+phone: "+968 XXXXXXXX"
+whatsapp: "+968 XXXXXXXX"
+email: "your@email.com"
+location: "Oman / China"

@@ -1,0 +1,45 @@
+# ── Dependencies ───────────────────────────────────────────
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# ── Next.js build output ────────────────────────────────────
+/.next/
+/out/
+
+# ── Environment variables (never commit secrets) ────────────
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# ── Vercel ──────────────────────────────────────────────────
+.vercel
+
+# ── OS / Editor ─────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.pem
+.idea/
+.vscode/
+
+# ── Debug logs ──────────────────────────────────────────────
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# ── TypeScript ──────────────────────────────────────────────
+*.tsbuildinfo
+next-env.d.ts
+
+# ── Claude Code agent files ─────────────────────────────────
+.claude/
+
+# ── Development-only assets (not used at runtime) ───────────
+# Brochure PDF — 95 MB reference doc, not served by the website
+public/assets/documents/Brochure.pdf
+# UUID-named logo duplicate — not referenced in any component
+public/assets/logo/copy_23979D1A-86CF-4436-919D-15B6D5C16C27.png

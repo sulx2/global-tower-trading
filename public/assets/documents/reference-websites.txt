@@ -1,0 +1,62 @@
+Reference Websites for Design Inspiration
+
+Use these websites only as inspiration.
+Do not copy them exactly.
+Analyze their premium industrial style, hero sections, animations, typography, spacing, service layout, and contact sections.
+
+Reference websites:
+
+1. Al Marwan Machinery
+   https://almarwan.com
+
+What I like:
+Premium heavy equipment style, strong hero section, corporate feeling, big images, modern layout.
+
+2. Al-Bahar CAT
+   https://www.albahar.com
+
+What I like:
+Very professional and expensive look, strong brand feeling, machinery-focused design.
+
+3. Byrne Equipment Rental
+   https://byrnerental.com
+
+What I like:
+Equipment rental structure, clear service sections, professional corporate layout.
+
+4. Kanoo Machinery
+   https://www.kanoomachinery.com
+
+What I like:
+Rental and machinery business style, clean corporate presentation.
+
+5. House of Machinery
+   https://houseofmachinery.com
+
+What I like:
+UAE industrial market style, machinery and equipment presentation.
+
+Website Goal:
+Create a unique premium industrial website for GLOBAL TOWER FOR TRADING.
+
+The website should feel:
+Expensive, powerful, corporate, industrial, modern, and suitable for UAE/Oman market.
+
+Important features to include:
+
+* Premium hero section
+* Dark overlay over industrial images
+* Sticky navbar
+* Smooth scroll animations
+* Parallax image movement
+* Animated statistics
+* Product category cards
+* Services section
+* Why Choose Us section
+* Contact section
+* Floating WhatsApp button
+* Fully responsive mobile design
+
+Important:
+Do not make the website look like a simple catalog.
+Use the brochure only to understand the company, services, and product categories.
