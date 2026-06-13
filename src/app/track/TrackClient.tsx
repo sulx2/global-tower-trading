@@ -15,8 +15,6 @@ type TrackState =
   | { status: "notFound"; message: string }
   | { status: "error" };
 
-const ENDPOINT = process.env.NEXT_PUBLIC_TRACK_ENDPOINT!;
-
 // ── Component ────────────────────────────────────────────────────────────────
 export default function TrackClient() {
   const [orderCode, setOrderCode] = useState("");
@@ -30,7 +28,8 @@ export default function TrackClient() {
     setState({ status: "loading" });
 
     try {
-      const res = await fetch(`${ENDPOINT}?code=${encodeURIComponent(code)}`);
+      // Call our own API route — avoids CORS with Google Apps Script
+      const res = await fetch(`/api/track?code=${encodeURIComponent(code)}`);
       if (!res.ok) throw new Error("HTTP error");
 
       const data = await res.json() as
