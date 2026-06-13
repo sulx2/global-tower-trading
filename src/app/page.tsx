@@ -1,4 +1,5 @@
 import SmoothScrollVideoHero from "@/components/ui/smooth-scroll-video-hero";
+import ServicesHighlight from "@/components/ServicesHighlight";
 import About from "@/components/About";
 import Services from "@/components/Services";
 import ProductCategories from "@/components/ProductCategories";
@@ -13,6 +14,7 @@ export default function HomePage() {
         initialClipPercentage={15}
         finalClipPercentage={85}
       />
+      <ServicesHighlight />
       <About />
       <Services />
       <ProductCategories />

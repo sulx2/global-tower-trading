@@ -82,16 +82,20 @@ export default function Footer() {
                 <LocationIcon />
                 <span>{companyInfo.contact.location}</span>
               </li>
-              <li className="flex items-start gap-2.5">
-                <PhoneIcon />
-                {companyInfo.availability.phone && companyInfo.links.phone ? (
-                  <a href={companyInfo.links.phone} className="transition-colors hover:text-blue-400">
-                    {companyInfo.contact.phone}
-                  </a>
-                ) : (
-                  <span>{companyInfo.contact.phone}</span>
-                )}
-              </li>
+              {companyInfo.team.map((member) => (
+                <li key={member.name} className="flex items-start gap-2.5">
+                  <PhoneIcon />
+                  <span className="min-w-0">
+                    <span className="block text-xs text-slate-600">{member.name}</span>
+                    <a
+                      href={member.phoneLink}
+                      className="transition-colors hover:text-blue-400"
+                    >
+                      {member.phone}
+                    </a>
+                  </span>
+                </li>
+              ))}
               <li className="flex items-start gap-2.5">
                 <EmailIcon />
                 {companyInfo.availability.email ? (

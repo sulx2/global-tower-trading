@@ -22,9 +22,9 @@ const config: Config = {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
       },
       animation: {
-        "fade-up":   "fadeUp 0.8s ease forwards",
-        "fade-in":   "fadeIn 1s ease forwards",
-        "counter":   "counter 2s ease-out forwards",
+        "fade-up":    "fadeUp 0.8s ease forwards",
+        "fade-in":    "fadeIn 1s ease forwards",
+        "counter":    "counter 2s ease-out forwards",
       },
       keyframes: {
         fadeUp: {

@@ -16,34 +16,44 @@ export const companyInfo = {
     heroVideo: "/assets/videos/hero-video.mp4",
   },
 
-  /**
-   * Contact details. Phone & WhatsApp are placeholders ("Coming soon") until
-   * the client confirms the public number. Components must check the matching
-   * `available` flags before rendering links.
-   */
+  /** Shared contact fields (email + location) */
   contact: {
-    phone: "+968 94947565",
-    whatsapp: "+968 94947565",
-    email: "Aljabri0999@gmail.com",
+    email: "globaltower.om@gmail.com",
     location: "Oman / China",
   },
 
-  /** Feature flags — drive whether a contact channel renders as a live link */
+  /**
+   * Named team contacts — used by the Contact section, Footer, and
+   * the FloatingWhatsApp popup. Add or remove entries here to update
+   * every place they appear in the UI.
+   */
+  team: [
+    {
+      name: "Ahmed",
+      phone: "+968 9494 7565",
+      phoneLink: "tel:+96894947565",
+      whatsapp: "https://wa.me/96894947565",
+    },
+    {
+      name: "Sultan",
+      phone: "+968 7753 9161",
+      phoneLink: "tel:+96877539161",
+      whatsapp: "https://wa.me/96877539161",
+    },
+  ],
+
+  /** Feature flags — drive whether contact channels render as live links */
   availability: {
     phone: true,
     whatsapp: true,
     email: true,
   },
 
-  /**
-   * Convenience link builders. Only use when the matching availability flag is
-   * true. The whatsapp number must be digits only (no +, spaces) when enabled.
-   */
+  /** Convenience link builders */
   links: {
-    phone: "tel:+96894947565",
-    whatsapp: "https://wa.me/96894947565",
-    email: "mailto:Aljabri0999@gmail.com",
+    email: "mailto:globaltower.om@gmail.com",
   },
 } as const;
 
 export type CompanyInfo = typeof companyInfo;
+export type TeamMember = (typeof companyInfo.team)[number];

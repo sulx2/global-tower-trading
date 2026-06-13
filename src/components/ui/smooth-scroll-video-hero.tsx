@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { Package, Calculator, Ship } from "lucide-react";
 import {
   motion,
   useMotionTemplate,
@@ -11,25 +12,27 @@ import {
 import { companyInfo } from "@/data/companyInfo";
 
 interface SmoothScrollVideoHeroProps {
-  /** px of scroll travel before the hero fully expands — default 1100 */
   scrollHeight?: number;
   initialClipPercentage?: number;
   finalClipPercentage?: number;
 }
 
-/* ── Video background with scroll clip-path + parallax scale ── */
+const shortcuts = [
+  { Icon: Package,    label: "Products",           tag: "a"    as const, href: "#services"   },
+  { Icon: Calculator, label: "Shipping Calculator", tag: "link" as const, href: "/calculator" },
+  { Icon: Ship,       label: "Track Shipment",      tag: "link" as const, href: "/track"      },
+];
+
 const VideoBackground: React.FC<Required<SmoothScrollVideoHeroProps>> = ({
   scrollHeight,
   initialClipPercentage,
   finalClipPercentage,
 }) => {
   const { scrollY } = useScroll();
-
-  const clipStart = useTransform(scrollY, [0, scrollHeight], [initialClipPercentage, 0]);
-  const clipEnd = useTransform(scrollY, [0, scrollHeight], [finalClipPercentage, 100]);
-  const clipPath = useMotionTemplate`polygon(${clipStart}% ${clipStart}%, ${clipEnd}% ${clipStart}%, ${clipEnd}% ${clipEnd}%, ${clipStart}% ${clipEnd}%)`;
-
-  const scale = useTransform(scrollY, [0, scrollHeight], [1.1, 1]);
+  const clipStart      = useTransform(scrollY, [0, scrollHeight], [initialClipPercentage, 0]);
+  const clipEnd        = useTransform(scrollY, [0, scrollHeight], [finalClipPercentage, 100]);
+  const clipPath       = useMotionTemplate`polygon(${clipStart}% ${clipStart}%, ${clipEnd}% ${clipStart}%, ${clipEnd}% ${clipEnd}%, ${clipStart}% ${clipEnd}%)`;
+  const scale          = useTransform(scrollY, [0, scrollHeight], [1.1, 1]);
   const contentOpacity = useTransform(scrollY, [0, scrollHeight * 0.5], [1, 0]);
 
   return (
@@ -37,56 +40,23 @@ const VideoBackground: React.FC<Required<SmoothScrollVideoHeroProps>> = ({
       className="sticky top-0 h-screen w-full overflow-hidden bg-[#0a1628]"
       style={{ clipPath, willChange: "clip-path" }}
     >
-      {/* Fallback gradient (always behind video) */}
       <div
         className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(135deg, #0a1628 0%, #0d2244 40%, #1e3a5f 70%, #0a1628 100%)",
-        }}
+        style={{ background: "linear-gradient(135deg, #0a1628 0%, #0d2244 40%, #1e3a5f 70%, #0a1628 100%)" }}
       />
-
-      {/* Background video */}
       <motion.video
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-        poster=""
+        autoPlay loop muted playsInline preload="auto"
         style={{ scale, willChange: "transform" }}
         className="absolute inset-0 h-full w-full object-cover"
         aria-hidden="true"
       >
         <source src={companyInfo.assets.heroVideo} type="video/mp4" />
       </motion.video>
-
-      {/* Overlay 1 — strong full-screen dark gradient */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(180deg, rgba(10,22,40,0.88) 0%, rgba(13,34,68,0.62) 45%, rgba(10,22,40,0.95) 100%)",
-        }}
-      />
-
-      {/* Overlay 2 — radial darkening concentrated behind text */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse 80% 65% at 50% 48%, rgba(10,22,40,0.55) 0%, transparent 100%)",
-        }}
-      />
-
-      {/* Overlay 3 — top bar keeps navbar area always dark */}
+      <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(10,22,40,0.88) 0%, rgba(13,34,68,0.62) 45%, rgba(10,22,40,0.95) 100%)" }} />
+      <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 80% 65% at 50% 48%, rgba(10,22,40,0.55) 0%, transparent 100%)" }} />
       <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#0a1628]/95 to-transparent" />
 
-      {/* Content */}
-      <motion.div
-        style={{ opacity: contentOpacity }}
-        className="absolute inset-0"
-      >
+      <motion.div style={{ opacity: contentOpacity }} className="absolute inset-0">
         <HeroContent />
       </motion.div>
     </motion.div>
@@ -96,12 +66,12 @@ const VideoBackground: React.FC<Required<SmoothScrollVideoHeroProps>> = ({
 function HeroContent() {
   return (
     /*
-     * absolute inset-0 → fills the full sticky container so justify-center
-     * works correctly. pt-20/pt-24 clears the fixed navbar (h≈64–80px).
+     * absolute inset-0 → fills the sticky container. justify-center centers
+     * the content block. Icons replace the old stat-badge row and sit in the
+     * normal flex flow, so there is zero overlap risk.
      */
-    <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-5 pb-12 pt-20 text-center sm:px-8 sm:pt-24">
+    <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-5 pt-20 pb-10 text-center sm:px-8 sm:pt-24 sm:pb-14">
 
-      {/* Inner max-width wrapper keeps text from stretching too wide */}
       <div className="mx-auto flex w-full max-w-3xl flex-col items-center">
 
         {/* Eyebrow */}
@@ -160,35 +130,65 @@ function HeroContent() {
           </Link>
         </motion.div>
 
-        {/* Stats / badges */}
+        {/* ── Service icon shortcuts (replace static stat badges) ── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.75 }}
-          className="mt-10 flex flex-wrap items-center justify-center gap-2 sm:mt-12 sm:gap-3"
+          className="mt-10 flex items-start justify-center gap-8 sm:mt-12 sm:gap-14"
         >
-          {["7+ Product Categories", "Global Trading", "Quality Focus"].map((s) => (
-            <span
-              key={s}
-              className="rounded-xl border border-white/15 bg-white/[0.07] px-4 py-2.5 text-[11px] font-semibold text-white shadow-sm backdrop-blur-sm sm:text-sm"
-            >
-              {s}
-            </span>
-          ))}
+          {shortcuts.map(({ Icon, label, tag, href }, i) => {
+            const circle = (
+              <motion.span
+                initial={{ opacity: 0, scale: 0.75 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.85 + i * 0.12, type: "spring", stiffness: 210, damping: 18 }}
+                whileHover={{ scale: 1.1, y: -4 }}
+                whileTap={{ scale: 0.93 }}
+                className="flex flex-col items-center gap-2.5"
+              >
+                {/* Pulse ring + icon circle */}
+                <span className="relative flex h-14 w-14 items-center justify-center">
+                  <motion.span
+                    animate={{ scale: [1, 1.85], opacity: [0.3, 0] }}
+                    transition={{ duration: 2.3, repeat: Infinity, delay: i * 0.5, ease: "easeOut" }}
+                    className="absolute inset-0 rounded-full bg-white/30"
+                  />
+                  <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-white shadow-xl shadow-black/30 ring-2 ring-white/50">
+                    <Icon className="h-6 w-6 text-[#0a1628]" strokeWidth={1.8} />
+                  </span>
+                </span>
+                {/* Label */}
+                <span className="max-w-[62px] text-center text-[10px] font-semibold leading-tight text-white/90 sm:max-w-[70px] sm:text-[11px]">
+                  {label}
+                </span>
+              </motion.span>
+            );
+
+            return tag === "a" ? (
+              <a key={label} href={href} aria-label={label}>
+                {circle}
+              </a>
+            ) : (
+              <Link key={label} href={href} aria-label={label}>
+                {circle}
+              </Link>
+            );
+          })}
         </motion.div>
       </div>
 
-      {/* Scroll hint — pinned to the bottom of the sticky container */}
+      {/* Scroll hint */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.3, duration: 0.8 }}
-        className="absolute bottom-5 left-1/2 -translate-x-1/2 sm:bottom-8"
+        transition={{ delay: 1.4, duration: 0.8 }}
+        className="absolute bottom-5 left-1/2 -translate-x-1/2 sm:bottom-7"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
-          className="flex flex-col items-center gap-1.5 text-white/40"
+          className="flex flex-col items-center gap-1.5 text-white/35"
         >
           <span className="text-[10px] uppercase tracking-widest">Scroll</span>
           <ChevronDownIcon />
@@ -202,58 +202,34 @@ const SmoothScrollVideoHero: React.FC<SmoothScrollVideoHeroProps> = ({
   scrollHeight = 1100,
   initialClipPercentage = 15,
   finalClipPercentage = 85,
-}) => {
-  return (
-    <section
-      style={{ height: `calc(${scrollHeight}px + 100vh)` }}
-      className="relative w-full"
-      aria-label="Hero"
-    >
-      <VideoBackground
-        scrollHeight={scrollHeight}
-        initialClipPercentage={initialClipPercentage}
-        finalClipPercentage={finalClipPercentage}
-      />
-    </section>
-  );
-};
+}) => (
+  <section
+    style={{ height: `calc(${scrollHeight}px + 100vh)` }}
+    className="relative w-full"
+    aria-label="Hero"
+  >
+    <VideoBackground
+      scrollHeight={scrollHeight}
+      initialClipPercentage={initialClipPercentage}
+      finalClipPercentage={finalClipPercentage}
+    />
+  </section>
+);
 
 export default SmoothScrollVideoHero;
 
 function ArrowRightIcon() {
   return (
-    <svg
-      className="h-4 w-4"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      aria-hidden="true"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M17 8l4 4m0 0l-4 4m4-4H3"
-      />
+    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
     </svg>
   );
 }
 
 function ChevronDownIcon() {
   return (
-    <svg
-      className="h-5 w-5"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      aria-hidden="true"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={1.5}
-        d="M19 9l-7 7-7-7"
-      />
+    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
     </svg>
   );
 }
