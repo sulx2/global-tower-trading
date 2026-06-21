@@ -31,6 +31,9 @@ export const metadata: Metadata = {
     apple: companyInfo.assets.logo,
     shortcut: companyInfo.assets.logo,
   },
+  verification: {
+    google: "2TqkznWUIU3QecNSTEqGFGpoVWLfwr5qm_ETASo1BDU",
+  },
   openGraph: {
     title: companyInfo.name,
     description:
