@@ -27,11 +27,8 @@ export const metadata: Metadata = {
     "construction materials trading",
     "equipment rental Oman",
   ],
-  icons: {
-    icon: [{ url: companyInfo.assets.logo, type: "image/png" }],
-    apple: companyInfo.assets.logo,
-    shortcut: companyInfo.assets.logo,
-  },
+  // Favicon / app icons are provided by src/app/icon.png and apple-icon.png
+  // (Next.js file convention auto-injects the optimized <link> tags).
   verification: {
     google: "2TqkznWUIU3QecNSTEqGFGpoVWLfwr5qm_ETASo1BDU",
   },
