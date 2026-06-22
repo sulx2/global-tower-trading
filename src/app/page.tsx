@@ -3,6 +3,8 @@ import ServicesHighlight from "@/components/ServicesHighlight";
 import About from "@/components/About";
 import Services from "@/components/Services";
 import ProductCategories from "@/components/ProductCategories";
+import RecentShipments from "@/components/RecentShipments";
+import ChinaWarehouses from "@/components/ChinaWarehouses";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import Contact from "@/components/Contact";
 
@@ -18,6 +20,8 @@ export default function HomePage() {
       <About />
       <Services />
       <ProductCategories />
+      <RecentShipments />
+      <ChinaWarehouses />
       <WhyChooseUs />
       <Contact />
     </>

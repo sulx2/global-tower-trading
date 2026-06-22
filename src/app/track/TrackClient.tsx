@@ -2,10 +2,20 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { Ship, Search, MessageCircle, Loader2, CheckCircle, XCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { companyInfo } from "@/data/companyInfo";
-import RouteMapVisual from "@/components/ui/RouteMapVisual";
+import { useLang } from "@/i18n/LanguageProvider";
+
+// Lazy-loaded world-map visual (decorative only — tracking logic is untouched).
+const WorldShippingMap = dynamic(
+  () => import("@/components/maps/WorldShippingMap"),
+  {
+    ssr: false,
+    loading: () => <div className="h-[420px] bg-[#040d1a]" />,
+  }
+);
 
 // ── State machine ────────────────────────────────────────────────────────────
 type TrackState =
@@ -17,6 +27,7 @@ type TrackState =
 
 // ── Component ────────────────────────────────────────────────────────────────
 export default function TrackClient() {
+  const { t } = useLang();
   const [orderCode, setOrderCode] = useState("");
   const [state, setState] = useState<TrackState>({ status: "idle" });
 
@@ -55,10 +66,7 @@ export default function TrackClient() {
 
   return (
     <div className="min-h-screen bg-[#0a1628]">
-      <RouteMapVisual
-        title="Track Your Shipment"
-        subtitle="Enter your order code to check your shipment status"
-      />
+      <WorldShippingMap title={t.track.title} subtitle={t.track.subtitle} />
 
       <div className="mx-auto max-w-lg px-4 py-14 sm:px-6 sm:py-20">
 
@@ -68,7 +76,7 @@ export default function TrackClient() {
             <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/10 text-sky-400">
               <Ship className="h-5 w-5" strokeWidth={1.6} />
             </span>
-            <h2 className="text-xl font-bold text-white">Track Shipment</h2>
+            <h2 className="text-xl font-bold text-white">{t.track.heading}</h2>
           </div>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -77,7 +85,7 @@ export default function TrackClient() {
                 htmlFor="order-code"
                 className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-slate-400"
               >
-                Order Code
+                {t.track.orderCode}
               </label>
               <input
                 id="order-code"
@@ -87,7 +95,7 @@ export default function TrackClient() {
                   setOrderCode(e.target.value);
                   if (hasResult) reset();
                 }}
-                placeholder="Order Code (e.g. GT-1024)"
+                placeholder={t.track.placeholder}
                 autoComplete="off"
                 disabled={isLoading}
                 className="w-full rounded-xl border border-white/10 bg-white/[0.05] px-4 py-3.5 text-sm text-white placeholder-slate-600 outline-none transition focus:border-sky-500/50 focus:bg-white/[0.08] focus:ring-1 focus:ring-sky-500/30 disabled:opacity-50"
@@ -102,12 +110,12 @@ export default function TrackClient() {
               {isLoading ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" strokeWidth={2} />
-                  Tracking…
+                  {t.track.tracking}
                 </>
               ) : (
                 <>
                   <Search className="h-4 w-4" strokeWidth={2} />
-                  Track Now
+                  {t.track.trackNow}
                 </>
               )}
             </button>
@@ -129,7 +137,7 @@ export default function TrackClient() {
                 <div className="flex items-center gap-3">
                   <CheckCircle className="h-5 w-5 shrink-0 text-emerald-400" strokeWidth={1.8} />
                   <p className="text-sm font-semibold text-white">
-                    Shipment Status:{" "}
+                    {t.track.shipmentStatus}{" "}
                     <span className="text-emerald-300">{state.shipmentStatus}</span>
                   </p>
                 </div>
@@ -162,7 +170,7 @@ export default function TrackClient() {
                       className="flex items-center justify-center gap-2 rounded-xl bg-[#25D366]/10 px-5 py-3 text-sm font-semibold text-[#25D366] transition hover:bg-[#25D366]/20"
                     >
                       <MessageCircle className="h-4 w-4" strokeWidth={1.8} />
-                      WhatsApp {member.name}
+                      {t.track.whatsapp} {member.name}
                     </a>
                   ))}
                 </div>
@@ -182,14 +190,14 @@ export default function TrackClient() {
                 <div className="flex items-start gap-3">
                   <XCircle className="mt-0.5 h-5 w-5 shrink-0 text-red-400" strokeWidth={1.8} />
                   <p className="text-sm text-slate-300">
-                    Could not reach the tracking server. Please try again or{" "}
+                    {t.track.errorReach}{" "}
                     <a
                       href={companyInfo.team[0].whatsapp}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="font-medium text-sky-400 underline underline-offset-4 hover:text-sky-300"
                     >
-                      contact us on WhatsApp
+                      {t.track.contactWhatsapp}
                     </a>
                     .
                   </p>
@@ -202,14 +210,14 @@ export default function TrackClient() {
           {/* Static hint (idle only) */}
           {state.status === "idle" && (
             <p className="mt-6 text-center text-sm text-slate-500">
-              Need an update now?{" "}
+              {t.track.needUpdate}{" "}
               <a
                 href={companyInfo.team[0].whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-medium text-sky-400 underline underline-offset-4 transition hover:text-sky-300"
               >
-                Contact us on WhatsApp
+                {t.track.contactUsWhatsapp}
               </a>
             </p>
           )}
@@ -221,7 +229,7 @@ export default function TrackClient() {
             href="/"
             className="inline-flex items-center gap-2 rounded-xl bg-white/[0.06] px-6 py-3 text-sm font-semibold text-slate-300 transition hover:bg-white/10 hover:text-white"
           >
-            ← Back to Home
+            ← {t.track.backToHome}
           </Link>
         </div>
       </div>

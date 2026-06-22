@@ -1,10 +1,23 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { companyInfo } from "@/data/companyInfo";
 import { navLinks } from "@/data/navigation";
 import { sectionCards } from "@/data/sectionCards";
+import { useLang } from "@/i18n/LanguageProvider";
+
+const NAV_KEYS: Record<string, "home" | "services" | "products" | "warehouses" | "about" | "contact"> = {
+  "/": "home",
+  "/#services": "services",
+  "/#products": "products",
+  "/#warehouses": "warehouses",
+  "/#about": "about",
+  "/#contact": "contact",
+};
 
 export default function Footer() {
+  const { t } = useLang();
   const year = new Date().getFullYear();
 
   return (
@@ -28,16 +41,14 @@ export default function Footer() {
               </span>
             </Link>
             <p className="max-w-xs text-sm leading-relaxed text-slate-400">
-              International trading partner for hardware, steel, mesh, tools, and
-              safety products — providing sourcing, shipping, and supply services
-              worldwide.
+              {t.footer.brandDesc}
             </p>
           </div>
 
           {/* Quick links */}
           <div>
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">
-              Quick Links
+              {t.footer.quickLinks}
             </h3>
             <ul className="space-y-2.5">
               {navLinks.map((link) => (
@@ -46,7 +57,7 @@ export default function Footer() {
                     href={link.href}
                     className="text-sm text-slate-400 transition-colors hover:text-blue-400"
                   >
-                    {link.label}
+                    {t.nav[NAV_KEYS[link.href]] ?? link.label}
                   </Link>
                 </li>
               ))}
@@ -56,7 +67,7 @@ export default function Footer() {
           {/* Product categories */}
           <div>
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">
-              Products
+              {t.footer.products}
             </h3>
             <ul className="space-y-2.5">
               {sectionCards.map((cat) => (
@@ -65,7 +76,7 @@ export default function Footer() {
                     href={`/products/${cat.slug}`}
                     className="text-sm text-slate-400 transition-colors hover:text-blue-400"
                   >
-                    {cat.title}
+                    {t.products.cards[cat.slug]?.title ?? cat.title}
                   </Link>
                 </li>
               ))}
@@ -75,7 +86,7 @@ export default function Footer() {
           {/* Contact */}
           <div>
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">
-              Contact
+              {t.footer.contact}
             </h3>
             <ul className="space-y-3 text-sm text-slate-400">
               <li className="flex items-start gap-2.5">
@@ -113,9 +124,9 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="flex flex-col items-center justify-between gap-2 border-t border-white/10 py-6 text-xs text-slate-500 sm:flex-row">
           <p>
-            &copy; {year} {companyInfo.name}. All rights reserved.
+            &copy; {year} {companyInfo.name}. {t.footer.rights}
           </p>
-          <p>Oman &amp; China Operations</p>
+          <p>{t.footer.operations}</p>
         </div>
       </div>
     </footer>

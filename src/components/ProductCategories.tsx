@@ -1,9 +1,13 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/ui/Reveal";
 import { sectionCards } from "@/data/sectionCards";
+import { useLang } from "@/i18n/LanguageProvider";
 
 export default function ProductCategories() {
+  const { t } = useLang();
   return (
     <section
       id="products"
@@ -12,19 +16,21 @@ export default function ProductCategories() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-blue-400">
-            Our Range
+            {t.products.eyebrow}
           </p>
           <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Product Categories
+            {t.products.title}
           </h2>
           <p className="mt-4 text-base text-slate-400">
-            Seven core categories covering hardware, industrial, and construction supply.
+            {t.products.subtitle}
           </p>
         </Reveal>
 
         {/* Grid: 1 col mobile, 2 col tablet, 3 col desktop */}
         <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {sectionCards.map((card, i) => (
+          {sectionCards.map((card, i) => {
+            const copy = t.products.cards[card.slug] ?? { title: card.title, desc: card.description };
+            return (
             <Reveal as="article" key={card.slug} delay={(i % 3) * 0.08}>
               <Link
                 href={`/products/${card.slug}`}
@@ -34,7 +40,7 @@ export default function ProductCategories() {
                 <div className="relative aspect-[3/2] w-full overflow-hidden">
                   <Image
                     src={card.image}
-                    alt={card.title}
+                    alt={copy.title}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"
@@ -45,18 +51,19 @@ export default function ProductCategories() {
                 {/* Text */}
                 <div className="p-5">
                   <h3 className="flex items-center justify-between text-lg font-semibold text-white">
-                    {card.title}
+                    {copy.title}
                     <span className="translate-x-0 text-blue-400 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100">
                       <ArrowRightIcon />
                     </span>
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-slate-400">
-                    {card.description}
+                    {copy.desc}
                   </p>
                 </div>
               </Link>
             </Reveal>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

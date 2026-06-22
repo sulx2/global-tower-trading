@@ -1,8 +1,13 @@
+"use client";
+
 import Reveal from "@/components/ui/Reveal";
 import AnimatedStat from "@/components/ui/AnimatedStat";
 import { companyInfo } from "@/data/companyInfo";
+import { sectionCards } from "@/data/sectionCards";
+import { useLang } from "@/i18n/LanguageProvider";
 
 export default function About() {
+  const { t } = useLang();
   return (
     <section
       id="about"
@@ -13,21 +18,16 @@ export default function About() {
           {/* Copy */}
           <Reveal>
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-blue-400">
-              About Us
+              {t.about.eyebrow}
             </p>
             <h2 className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl">
-              A trusted trading partner for industry and construction
+              {t.about.title}
             </h2>
             <p className="mt-6 text-base leading-relaxed text-slate-400">
-              {companyInfo.name} connects global manufacturing with clients
-              worldwide, with operations based in Oman and sourcing support from
-              China. We deliver hardware, steel, mesh, tools, and safety products
-              through one reliable supply chain.
+              {companyInfo.name} {t.about.p1}
             </p>
             <p className="mt-4 text-base leading-relaxed text-slate-400">
-              Our business is built on four pillars — import, export, equipment
-              rental, and hardware supply — backed by responsive coordination and
-              competitive sourcing.
+              {t.about.p2}
             </p>
           </Reveal>
 
@@ -35,13 +35,13 @@ export default function About() {
           <Reveal delay={0.15}>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-[#0d2244] to-[#0a1628] p-6">
-                <AnimatedStat value={7} suffix="+" caption="Product Categories" />
+                <AnimatedStat value={sectionCards.length} suffix="+" caption={t.about.statCategories} />
               </div>
               <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-[#0d2244] to-[#0a1628] p-6">
-                <AnimatedStat staticValue="5+ Years" caption="Industry Experience" />
+                <AnimatedStat staticValue={t.about.statExperienceValue} caption={t.about.statExperience} />
               </div>
               <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-[#0d2244] to-[#0a1628] p-6">
-                <AnimatedStat staticValue="Secure" caption="Guaranteed & Reliable" />
+                <AnimatedStat staticValue={t.about.statSecureValue} caption={t.about.statSecure} />
               </div>
             </div>
           </Reveal>

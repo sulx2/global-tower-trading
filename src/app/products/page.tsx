@@ -4,7 +4,7 @@ import ProductCategories from "@/components/ProductCategories";
 export const metadata: Metadata = {
   title: "Products",
   description:
-    "Explore our seven product categories — wire mesh, fencing, steel, tools, safety products, nails, fasteners, pipes & valves.",
+    "Explore our ten product categories — wire mesh, fencing, steel coils, pipes, tools, safety products, nails & fasteners.",
 };
 
 export default function ProductsIndexPage() {

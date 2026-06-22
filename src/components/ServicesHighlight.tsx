@@ -3,13 +3,12 @@
 import Link from "next/link";
 import { Package, Calculator, Ship, ArrowRight } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
+import { useLang } from "@/i18n/LanguageProvider";
 
 const cards = [
   {
     Icon: Package,
-    title: "Products",
-    description: "Browse our full hardware & industrial catalogue — wire mesh, fencing, steel, safety gear, and more across 7 categories.",
-    cta: "View Products",
+    key: "products",
     href: "/#products",
     iconColor: "text-blue-400",
     iconBg: "bg-blue-500/10",
@@ -18,9 +17,7 @@ const cards = [
   },
   {
     Icon: Calculator,
-    title: "Shipping Calculator",
-    description: "Calculate your CBM and shipping cost from China to Oman instantly. Get an accurate freight estimate before you order.",
-    cta: "Calculate Now",
+    key: "calculator",
     href: "/calculator",
     iconColor: "text-[#4A90D9]",
     iconBg: "bg-[#4A90D9]/10",
@@ -29,9 +26,7 @@ const cards = [
   },
   {
     Icon: Ship,
-    title: "Track Shipment",
-    description: "Enter your order code and track your shipment status in real time, from China all the way to your destination.",
-    cta: "Track Now",
+    key: "track",
     href: "/track",
     iconColor: "text-sky-400",
     iconBg: "bg-sky-500/10",
@@ -51,6 +46,7 @@ const cardVariants: Variants = {
 };
 
 export default function ServicesHighlight() {
+  const { t } = useLang();
   return (
     <section
       id="services"
@@ -73,13 +69,13 @@ export default function ServicesHighlight() {
         {/* Section header */}
         <div className="mb-14 text-center sm:mb-16">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-blue-300 backdrop-blur-sm">
-            Our Services
+            {t.servicesHighlight.eyebrow}
           </span>
           <h2 className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
-            What We Offer
+            {t.servicesHighlight.title}
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-slate-400">
-            Everything you need for global industrial trading and logistics — from sourcing to delivery.
+            {t.servicesHighlight.subtitle}
           </p>
         </div>
 
@@ -93,9 +89,10 @@ export default function ServicesHighlight() {
         >
           {cards.map((card) => {
             const Icon = card.Icon;
+            const copy = t.servicesHighlight[card.key];
             return (
               <motion.div
-                key={card.title}
+                key={card.key}
                 variants={cardVariants}
                 className={[
                   "group flex flex-col gap-8 rounded-3xl border border-white/[0.06] p-8 lg:p-10",
@@ -119,8 +116,8 @@ export default function ServicesHighlight() {
 
                 {/* Text */}
                 <div className="flex-1">
-                  <h3 className="text-2xl font-bold text-white">{card.title}</h3>
-                  <p className="mt-3 text-[15px] leading-relaxed text-slate-400">{card.description}</p>
+                  <h3 className="text-2xl font-bold text-white">{copy.title}</h3>
+                  <p className="mt-3 text-[15px] leading-relaxed text-slate-400">{copy.desc}</p>
                 </div>
 
                 {/* CTA button */}
@@ -132,7 +129,7 @@ export default function ServicesHighlight() {
                     card.ctaColor,
                   ].join(" ")}
                 >
-                  {card.cta}
+                  {copy.cta}
                   <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" strokeWidth={2} />
                 </Link>
               </motion.div>

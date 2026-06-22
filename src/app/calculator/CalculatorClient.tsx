@@ -6,6 +6,7 @@ import { Calculator, ChevronDown, ChevronUp, Phone, MessageCircle, Info, Users }
 import { motion, AnimatePresence } from "framer-motion";
 import { companyInfo } from "@/data/companyInfo";
 import RouteMapVisual from "@/components/ui/RouteMapVisual";
+import { useLang } from "@/i18n/LanguageProvider";
 
 // ── Pricing tiers ─────────────────────────────────────────────
 const TIERS = [
@@ -65,6 +66,7 @@ function ResultRow({ label, value, accent = false }: { label: string; value: str
 
 // ── Main component ─────────────────────────────────────────────
 export default function CalculatorClient() {
+  const { t } = useLang();
   const [length, setLength]   = useState("");
   const [width,  setWidth]    = useState("");
   const [height, setHeight]   = useState("");
@@ -94,10 +96,7 @@ export default function CalculatorClient() {
 
   return (
     <div className="min-h-screen bg-[#0a1628]">
-      <RouteMapVisual
-        title="Shipping Calculator"
-        subtitle="Estimate your CBM and freight cost from China to Oman"
-      />
+      <RouteMapVisual title={t.calculator.title} subtitle={t.calculator.subtitle} />
 
       <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
 
@@ -107,15 +106,15 @@ export default function CalculatorClient() {
             <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400">
               <Calculator className="h-5 w-5" strokeWidth={1.6} />
             </span>
-            <h2 className="text-xl font-bold text-white">CBM Calculator</h2>
+            <h2 className="text-xl font-bold text-white">{t.calculator.cbmCalculator}</h2>
           </div>
 
           {/* Inputs */}
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-            <Field label="Length (cm)" value={length} onChange={setLength} />
-            <Field label="Width (cm)"  value={width}  onChange={setWidth}  />
-            <Field label="Height (cm)" value={height} onChange={setHeight} />
-            <Field label="Weight (kg)" value={weight} onChange={setWeight} placeholder="Optional" />
+            <Field label={t.calculator.length} value={length} onChange={setLength} />
+            <Field label={t.calculator.width}  value={width}  onChange={setWidth}  />
+            <Field label={t.calculator.height} value={height} onChange={setHeight} />
+            <Field label={t.calculator.weight} value={weight} onChange={setWeight} placeholder={t.calculator.optional} />
           </div>
 
           {/* Actions */}
@@ -125,14 +124,14 @@ export default function CalculatorClient() {
               className="flex items-center gap-2 rounded-xl bg-blue-600 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-900/30 transition-all duration-200 hover:scale-105 hover:bg-blue-500"
             >
               <Calculator className="h-4 w-4" strokeWidth={2} />
-              Calculate
+              {t.calculator.calculate}
             </button>
             {result && (
               <button
                 onClick={reset}
                 className="rounded-xl border border-white/10 px-6 py-3 text-sm font-semibold text-slate-400 transition hover:border-white/20 hover:text-white"
               >
-                Reset
+                {t.calculator.reset}
               </button>
             )}
           </div>
@@ -147,14 +146,14 @@ export default function CalculatorClient() {
                 transition={{ duration: 0.35 }}
                 className="mt-7 divide-y divide-white/[0.06] rounded-2xl border border-white/[0.08] bg-white/[0.04] px-6 py-2"
               >
-                <ResultRow label="Actual Volume"       value={`${result.volume.toFixed(4)} CBM`} />
+                <ResultRow label={t.calculator.actualVolume}    value={`${result.volume.toFixed(4)} CBM`} />
                 <ResultRow
-                  label="Volumetric Weight"
-                  value={result.volWeight !== null ? `${result.volWeight.toFixed(4)} CBM` : "Not provided"}
+                  label={t.calculator.volumetricWeight}
+                  value={result.volWeight !== null ? `${result.volWeight.toFixed(4)} CBM` : t.calculator.notProvided}
                 />
-                <ResultRow label="Billable CBM"        value={`${result.billable.toFixed(4)} CBM`} />
+                <ResultRow label={t.calculator.billableCbm}     value={`${result.billable.toFixed(4)} CBM`} />
                 <ResultRow
-                  label="Estimated Price"
+                  label={t.calculator.estimatedPrice}
                   value={result.formula ? `${result.price} OMR  (${result.billable.toFixed(3)} × 65)` : `${result.price} OMR`}
                   accent
                 />
@@ -168,15 +167,14 @@ export default function CalculatorClient() {
               <Info className="mt-0.5 h-4 w-4 shrink-0 text-blue-400" />
               <div className="flex-1 min-w-0">
                 <p className="text-sm leading-relaxed text-slate-300">
-                  If the shipment is not destined for Oman, please contact us directly
-                  for a customized freight quote tailored to your destination.
+                  {t.calculator.note}
                 </p>
                 <button
                   onClick={() => setContactOpen((v) => !v)}
                   className="mt-3 flex items-center gap-2 text-sm font-semibold text-blue-400 transition-colors hover:text-blue-300"
                 >
                   <Users className="h-4 w-4" />
-                  Contact our team
+                  {t.calculator.contactTeam}
                   {contactOpen
                     ? <ChevronUp className="h-4 w-4" />
                     : <ChevronDown className="h-4 w-4" />
@@ -233,15 +231,15 @@ export default function CalculatorClient() {
 
         {/* ── Pricing Table ── */}
         <section className="mt-8 rounded-3xl border border-white/[0.07] bg-white/[0.03] p-7 backdrop-blur-xl sm:p-9">
-          <h2 className="mb-5 text-xl font-bold text-white">Shipping Price Table</h2>
-          <p className="mb-5 text-sm text-slate-500">Rates apply for shipments to Oman.</p>
+          <h2 className="mb-5 text-xl font-bold text-white">{t.calculator.priceTable}</h2>
+          <p className="mb-5 text-sm text-slate-500">{t.calculator.ratesApply}</p>
 
           <div className="overflow-hidden rounded-2xl border border-white/[0.07]">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-white/[0.07] bg-white/[0.04]">
-                  <th className="px-5 py-3.5 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">CBM Range</th>
-                  <th className="px-5 py-3.5 text-right text-xs font-semibold uppercase tracking-wider text-slate-500">Price (OMR)</th>
+                  <th className="px-5 py-3.5 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">{t.calculator.cbmRange}</th>
+                  <th className="px-5 py-3.5 text-right text-xs font-semibold uppercase tracking-wider text-slate-500">{t.calculator.priceColumn}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/[0.05]">
@@ -264,10 +262,10 @@ export default function CalculatorClient() {
                 {/* Above 0.95 row */}
                 <tr className={`transition-colors ${result?.formula ? "bg-blue-600/15" : "hover:bg-white/[0.025]"}`}>
                   <td className={`px-5 py-3.5 font-mono ${result?.formula ? "text-blue-300 font-semibold" : "text-slate-300"}`}>
-                    Above 0.95
+                    {t.calculator.above}
                   </td>
                   <td className={`px-5 py-3.5 text-right font-semibold ${result?.formula ? "text-blue-300" : "text-white"}`}>
-                    CBM × 65 OMR
+                    {t.calculator.formulaRow}
                   </td>
                 </tr>
               </tbody>
@@ -280,7 +278,7 @@ export default function CalculatorClient() {
               animate={{ opacity: 1 }}
               className="mt-4 text-center text-sm font-semibold text-blue-300"
             >
-              Your billable CBM: {result.billable.toFixed(4)} → Estimated price: {result.price} OMR
+              {t.calculator.yourBillable}: {result.billable.toFixed(4)} → {t.calculator.estPriceShort}: {result.price} OMR
             </motion.p>
           )}
         </section>
@@ -291,7 +289,7 @@ export default function CalculatorClient() {
             href="/"
             className="inline-flex items-center gap-2 rounded-xl bg-white/[0.06] px-6 py-3 text-sm font-semibold text-slate-300 transition hover:bg-white/10 hover:text-white"
           >
-            ← Back to Home
+            ← {t.calculator.backToHome}
           </Link>
         </div>
       </div>

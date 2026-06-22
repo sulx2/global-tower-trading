@@ -121,6 +121,30 @@ export const productsByCategory: Record<string, string[]> = {
     "Bellows Valves",
     "Fluorine-Lined Valves",
   ],
+  ppgi: [
+    "Color-Coated Coils (PPGI)",
+    "PPGL / Galvalume",
+    "Roofing Sheets",
+    "Cladding Sheets",
+    "RAL Color Options",
+    "Custom Thickness 0.2–1.2mm",
+  ],
+  crc: [
+    "Cold Rolled Coils",
+    "CR Sheets",
+    "Full Hard",
+    "Annealed (SPCC)",
+    "Custom Width",
+    "Thickness 0.3–3.0mm",
+  ],
+  hrc: [
+    "Hot Rolled Coils",
+    "HR Sheets",
+    "Pickled & Oiled (HRPO)",
+    "Structural Plates",
+    "Mild Steel Grades",
+    "Thickness 1.5–20mm",
+  ],
 };
 
 export function getProductsForCategory(slug: string): string[] {

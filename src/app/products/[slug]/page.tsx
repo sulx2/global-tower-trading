@@ -7,7 +7,7 @@ import { sectionCards, getSectionBySlug } from "@/data/sectionCards";
 import { getProductsForCategory } from "@/data/products";
 import { companyInfo } from "@/data/companyInfo";
 
-/** Pre-render all 7 category pages at build time */
+/** Pre-render every category page at build time */
 export function generateStaticParams() {
   return sectionCards.map((card) => ({ slug: card.slug }));
 }

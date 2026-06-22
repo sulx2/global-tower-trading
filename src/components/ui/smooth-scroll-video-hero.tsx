@@ -10,6 +10,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { companyInfo } from "@/data/companyInfo";
+import { useLang } from "@/i18n/LanguageProvider";
 
 interface SmoothScrollVideoHeroProps {
   scrollHeight?: number;
@@ -18,9 +19,9 @@ interface SmoothScrollVideoHeroProps {
 }
 
 const shortcuts = [
-  { Icon: Package,    label: "Products",           tag: "a"    as const, href: "#services"   },
-  { Icon: Calculator, label: "Shipping Calculator", tag: "link" as const, href: "/calculator" },
-  { Icon: Ship,       label: "Track Shipment",      tag: "link" as const, href: "/track"      },
+  { Icon: Package,    key: "scProducts"   as const, tag: "a"    as const, href: "#services"   },
+  { Icon: Calculator, key: "scCalculator" as const, tag: "link" as const, href: "/calculator" },
+  { Icon: Ship,       key: "scTrack"      as const, tag: "link" as const, href: "/track"      },
 ];
 
 const VideoBackground: React.FC<Required<SmoothScrollVideoHeroProps>> = ({
@@ -64,6 +65,7 @@ const VideoBackground: React.FC<Required<SmoothScrollVideoHeroProps>> = ({
 };
 
 function HeroContent() {
+  const { t } = useLang();
   return (
     /*
      * absolute inset-0 → fills the sticky container. justify-center centers
@@ -92,9 +94,9 @@ function HeroContent() {
           className="text-[1.75rem] font-bold leading-[1.12] tracking-tight text-white drop-shadow-lg sm:text-4xl md:text-5xl lg:text-6xl"
           style={{ textShadow: "0 2px 16px rgba(0,0,0,0.5)" }}
         >
-          Global Trading.{" "}
-          <span className="text-blue-400">Reliable Supply.</span>{" "}
-          Industrial Solutions.
+          {t.hero.headline1}{" "}
+          <span className="text-blue-400">{t.hero.headline2}</span>{" "}
+          {t.hero.headline3}
         </motion.h1>
 
         {/* Subtitle */}
@@ -104,8 +106,7 @@ function HeroContent() {
           transition={{ duration: 0.8, delay: 0.45 }}
           className="mt-5 max-w-[16rem] text-sm leading-relaxed text-slate-200 drop-shadow sm:max-w-lg sm:text-base md:max-w-2xl md:text-lg"
         >
-          Import, export, equipment rental, and hardware supply for
-          construction, industrial, and commercial needs.
+          {t.hero.subtitle}
         </motion.p>
 
         {/* CTA buttons */}
@@ -119,14 +120,14 @@ function HeroContent() {
             href="/#products"
             className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-900/40 transition-all duration-200 hover:scale-105 hover:bg-blue-500 sm:w-auto"
           >
-            Explore Products
+            {t.hero.exploreProducts}
             <ArrowRightIcon />
           </Link>
           <Link
             href="/#contact"
             className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-white/25 bg-white/[0.07] px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-200 hover:scale-105 hover:bg-white/[0.14] sm:w-auto"
           >
-            Contact Us
+            {t.hero.contactUs}
           </Link>
         </motion.div>
 
@@ -137,7 +138,8 @@ function HeroContent() {
           transition={{ duration: 0.8, delay: 0.75 }}
           className="mt-10 flex items-start justify-center gap-8 sm:mt-12 sm:gap-14"
         >
-          {shortcuts.map(({ Icon, label, tag, href }, i) => {
+          {shortcuts.map(({ Icon, key, tag, href }, i) => {
+            const label = t.hero[key];
             const circle = (
               <motion.span
                 initial={{ opacity: 0, scale: 0.75 }}
@@ -190,7 +192,7 @@ function HeroContent() {
           transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
           className="flex flex-col items-center gap-1.5 text-white/35"
         >
-          <span className="text-[10px] uppercase tracking-widest">Scroll</span>
+          <span className="text-[10px] uppercase tracking-widest">{t.hero.scroll}</span>
           <ChevronDownIcon />
         </motion.div>
       </motion.div>

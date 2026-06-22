@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+import { LanguageProvider } from "@/i18n/LanguageProvider";
 import { companyInfo } from "@/data/companyInfo";
 import "./globals.css";
 
@@ -53,10 +54,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className="bg-[#0a1628] font-sans text-white antialiased">
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
-        <FloatingWhatsApp />
+        <LanguageProvider>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+          <FloatingWhatsApp />
+        </LanguageProvider>
       </body>
     </html>
   );

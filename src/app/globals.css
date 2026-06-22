@@ -33,3 +33,32 @@
 video {
   will-change: transform;
 }
+
+/* ── Map visuals (China Warehouses + World Shipping) ── */
+
+/* Travelling glow along a shipping lane (stroke-dasharray set inline) */
+@keyframes lane-flow {
+  to {
+    stroke-dashoffset: -1000;
+  }
+}
+.lane-flow {
+  animation: lane-flow 7s linear infinite;
+}
+
+/* Soft pulsing ring around a city / port marker */
+@keyframes marker-pulse {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+.marker-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: marker-pulse 2.4s ease-out infinite;
+}

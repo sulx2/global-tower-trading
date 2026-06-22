@@ -1,45 +1,18 @@
+"use client";
+
 import Reveal from "@/components/ui/Reveal";
+import { useLang } from "@/i18n/LanguageProvider";
 
-interface Service {
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-}
-
-const coreServices: Service[] = [
-  {
-    title: "Import",
-    description:
-      "Sourcing quality hardware and industrial goods from trusted global manufacturers.",
-    icon: <ImportIcon />,
-  },
-  {
-    title: "Export",
-    description:
-      "Supplying construction and industrial materials to regional and international markets.",
-    icon: <ExportIcon />,
-  },
-  {
-    title: "Equipment Rental",
-    description:
-      "Industrial lifting, material-handling, and site equipment for project needs.",
-    icon: <RentalIcon />,
-  },
-  {
-    title: "Hardware Supply",
-    description:
-      "Wholesale and project supply of hardware, fixings, mesh, steel, and tools.",
-    icon: <SupplyIcon />,
-  },
-];
-
-const supporting = [
-  "Product Sourcing",
-  "Supply Coordination",
-  "Local Delivery Support",
-];
+const coreServices = [
+  { key: "import", icon: <ImportIcon /> },
+  { key: "export", icon: <ExportIcon /> },
+  { key: "rental", icon: <RentalIcon /> },
+  { key: "supply", icon: <SupplyIcon /> },
+] as const;
 
 export default function Services() {
+  const { t } = useLang();
+  const supporting = [t.services.sourcing, t.services.coordination, t.services.delivery];
   return (
     <section
       id="services"
@@ -48,29 +21,29 @@ export default function Services() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-blue-400">
-            What We Do
+            {t.services.eyebrow}
           </p>
           <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Built around four pillars
+            {t.services.title}
           </h2>
           <p className="mt-4 text-base text-slate-400">
-            One partner managing the full supply cycle — from sourcing to delivery.
+            {t.services.subtitle}
           </p>
         </Reveal>
 
         {/* Core service cards */}
         <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {coreServices.map((service, i) => (
-            <Reveal as="article" key={service.title} delay={i * 0.08}>
+            <Reveal as="article" key={service.key} delay={i * 0.08}>
               <div className="group h-full rounded-2xl border border-white/10 bg-gradient-to-br from-[#0d2244] to-[#0a1628] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-blue-500/40 hover:shadow-xl hover:shadow-blue-900/20">
                 <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-blue-600/15 text-blue-400 ring-1 ring-blue-500/20 transition-colors group-hover:bg-blue-600/25">
                   {service.icon}
                 </div>
                 <h3 className="text-lg font-semibold text-white">
-                  {service.title}
+                  {t.services[service.key].title}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-slate-400">
-                  {service.description}
+                  {t.services[service.key].desc}
                 </p>
               </div>
             </Reveal>
@@ -80,7 +53,7 @@ export default function Services() {
         {/* Supporting points */}
         <Reveal className="mt-10" delay={0.1}>
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <span className="text-sm text-slate-500">Also offering:</span>
+            <span className="text-sm text-slate-500">{t.services.alsoOffering}</span>
             {supporting.map((point) => (
               <span
                 key={point}

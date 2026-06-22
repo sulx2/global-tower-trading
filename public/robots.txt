@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.globaltower.net
+
+# Sitemaps
+Sitemap: https://www.globaltower.net/sitemap.xml

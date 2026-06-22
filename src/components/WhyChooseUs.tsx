@@ -1,70 +1,44 @@
+"use client";
+
 import Reveal from "@/components/ui/Reveal";
+import { useLang } from "@/i18n/LanguageProvider";
 
-interface Point {
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-}
-
-const points: Point[] = [
-  {
-    title: "Reliable Supply",
-    description: "Consistent stock and dependable sourcing channels.",
-    icon: <CheckShieldIcon />,
-  },
-  {
-    title: "Quality Products",
-    description: "Industrial-grade materials from trusted manufacturers.",
-    icon: <BadgeIcon />,
-  },
-  {
-    title: "Competitive Prices",
-    description: "Direct sourcing keeps pricing sharp.",
-    icon: <TagIcon />,
-  },
-  {
-    title: "International Experience",
-    description: "International trading and supply expertise across worldwide markets.",
-    icon: <GlobeIcon />,
-  },
-  {
-    title: "Fast Support",
-    description: "Responsive coordination from inquiry to delivery.",
-    icon: <BoltIcon />,
-  },
-  {
-    title: "Broad Product Range",
-    description: "Seven categories under one roof.",
-    icon: <GridIcon />,
-  },
-];
+const points = [
+  { key: "reliable", icon: <CheckShieldIcon /> },
+  { key: "quality", icon: <BadgeIcon /> },
+  { key: "price", icon: <TagIcon /> },
+  { key: "intl", icon: <GlobeIcon /> },
+  { key: "support", icon: <BoltIcon /> },
+  { key: "range", icon: <GridIcon /> },
+] as const;
 
 export default function WhyChooseUs() {
+  const { t } = useLang();
   return (
     <section className="relative border-t border-white/5 bg-[#070f1d] py-20 sm:py-24 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-blue-400">
-            Why Choose Us
+            {t.why.eyebrow}
           </p>
           <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            A supplier you can build on
+            {t.why.title}
           </h2>
         </Reveal>
 
         <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {points.map((point, i) => (
-            <Reveal as="article" key={point.title} delay={(i % 3) * 0.08}>
+            <Reveal as="article" key={point.key} delay={(i % 3) * 0.08}>
               <div className="flex h-full items-start gap-4 rounded-2xl border border-white/10 bg-[#0d2244]/50 p-6 transition-colors duration-300 hover:border-blue-500/30">
                 <div className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-600/15 text-blue-400 ring-1 ring-blue-500/20">
                   {point.icon}
                 </div>
                 <div>
                   <h3 className="text-base font-semibold text-white">
-                    {point.title}
+                    {t.why[point.key].title}
                   </h3>
                   <p className="mt-1 text-sm leading-relaxed text-slate-400">
-                    {point.description}
+                    {t.why[point.key].desc}
                   </p>
                 </div>
               </div>

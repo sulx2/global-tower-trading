@@ -66,6 +66,27 @@ export const sectionCards: SectionCard[] = [
       "Structural pipes, steel products, and industrial flow-control valves.",
     image: "/assets/images/sections/steel-pipes-valves.png",
   },
+  {
+    slug: "ppgi",
+    title: "PPGI Steel Coils",
+    description:
+      "Pre-painted galvanized steel coils in multiple colors for roofing, cladding, and appliances.",
+    image: "/assets/images/sections/ppgi.png",
+  },
+  {
+    slug: "crc",
+    title: "CRC Steel Coils",
+    description:
+      "Cold-rolled steel coils with a smooth, precise finish for fabrication, automotive, and appliances.",
+    image: "/assets/images/sections/crc.png",
+  },
+  {
+    slug: "hrc",
+    title: "HRC Steel Coils",
+    description:
+      "Hot-rolled steel coils for structural, fabrication, and heavy industrial applications.",
+    image: "/assets/images/sections/hrc.png",
+  },
 ];
 
 /** Helper for category pages */

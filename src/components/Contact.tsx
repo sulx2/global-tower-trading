@@ -1,9 +1,13 @@
+"use client";
+
 import Reveal from "@/components/ui/Reveal";
 import { companyInfo } from "@/data/companyInfo";
 import type { TeamMember } from "@/data/companyInfo";
+import { useLang } from "@/i18n/LanguageProvider";
 
 export default function Contact() {
   const { contact, availability, links, team } = companyInfo;
+  const { t } = useLang();
 
   return (
     <section
@@ -17,15 +21,13 @@ export default function Contact() {
             {/* Left: copy + CTA */}
             <Reveal>
               <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-blue-400">
-                Get In Touch
+                {t.contact.eyebrow}
               </p>
               <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                Let&apos;s talk supply
+                {t.contact.title}
               </h2>
               <p className="mt-4 text-base leading-relaxed text-slate-400">
-                Tell us what you need — hardware, steel, mesh, tools, or safety
-                products. We&apos;ll source it and coordinate delivery for your
-                project.
+                {t.contact.desc}
               </p>
 
               {availability.email && (
@@ -33,7 +35,7 @@ export default function Contact() {
                   href={links.email}
                   className="mt-8 inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-900/40 transition-all duration-200 hover:scale-105 hover:bg-blue-500"
                 >
-                  Contact Us
+                  {t.contact.button}
                   <ArrowRightIcon />
                 </a>
               )}
@@ -54,7 +56,7 @@ export default function Contact() {
                 {/* Email */}
                 <li>
                   <ContactRow
-                    label="Email"
+                    label={t.contact.emailLabel}
                     value={contact.email}
                     href={availability.email ? links.email : null}
                     icon={<EmailIcon />}
@@ -64,7 +66,7 @@ export default function Contact() {
                 {/* Location */}
                 <li>
                   <ContactRow
-                    label="Location"
+                    label={t.contact.locationLabel}
                     value={contact.location}
                     href={null}
                     icon={<LocationIcon />}

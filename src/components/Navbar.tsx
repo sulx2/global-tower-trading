@@ -6,8 +6,21 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { companyInfo } from "@/data/companyInfo";
 import { navLinks } from "@/data/navigation";
+import { useLang } from "@/i18n/LanguageProvider";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+
+/** Maps each nav href to its translation key under `t.nav`. */
+const NAV_KEYS: Record<string, keyof ReturnType<typeof useLang>["t"]["nav"]> = {
+  "/": "home",
+  "/#services": "services",
+  "/#products": "products",
+  "/#warehouses": "warehouses",
+  "/#about": "about",
+  "/#contact": "contact",
+};
 
 export default function Navbar() {
+  const { t } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -61,19 +74,20 @@ export default function Navbar() {
                 href={link.href}
                 className="text-sm font-medium text-slate-600 transition-colors duration-200 hover:text-[#0a1628]"
               >
-                {link.label}
+                {t.nav[NAV_KEYS[link.href]] ?? link.label}
               </Link>
             </li>
           ))}
         </ul>
 
-        {/* Desktop CTA */}
-        <div className="hidden md:block">
+        {/* Desktop CTA + language */}
+        <div className="hidden items-center gap-3 md:flex">
+          <LanguageSwitcher />
           <Link
             href="/#contact"
             className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-blue-200 transition-all duration-200 hover:bg-blue-700 hover:scale-105"
           >
-            Get a Quote
+            {t.nav.getQuote}
           </Link>
         </div>
 
@@ -106,17 +120,20 @@ export default function Navbar() {
                     onClick={() => setMenuOpen(false)}
                     className="block rounded-lg px-4 py-3 text-base font-medium text-slate-700 transition-colors hover:bg-slate-50 hover:text-[#0a1628]"
                   >
-                    {link.label}
+                    {t.nav[NAV_KEYS[link.href]] ?? link.label}
                   </Link>
                 </li>
               ))}
+              <li className="px-1 pt-3">
+                <LanguageSwitcher variant="menu" />
+              </li>
               <li className="pt-2">
                 <Link
                   href="/#contact"
                   onClick={() => setMenuOpen(false)}
                   className="block rounded-lg bg-blue-600 px-4 py-3.5 text-center text-base font-semibold text-white transition-colors hover:bg-blue-700"
                 >
-                  Get a Quote
+                  {t.nav.getQuote}
                 </Link>
               </li>
             </ul>
