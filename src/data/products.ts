@@ -145,8 +145,85 @@ export const productsByCategory: Record<string, string[]> = {
     "Mild Steel Grades",
     "Thickness 1.5–20mm",
   ],
+  "plastic-polymer": [
+    // PVC Materials
+    "Flexible Virgin PVC",
+    "PVC Cable Compound",
+    "PVC Foam Granules",
+    "PVC Injection Molding Granules",
+    "Transparent Rigid PVC Granules",
+    "UPVC Injection Molding",
+    "PVC Rod",
+    "PVC Welding Rod",
+    // PP & TPE Materials
+    "TPE Pellets",
+    "PP Rod",
+    "PP Welding Rod",
+    "Solid PP Sheet",
+    "PP Gray Panel",
+    "PP Roll Sheet",
+    // Pipes & Fittings
+    "HDPE DWC Pipes",
+    "HDPE Gas Pipe",
+    "PE100 HDPE Water Pipes",
+    "PP-R Pipes and Fittings",
+    "UPVC Water Supply and Drainage Pipes",
+  ],
+};
+
+/**
+ * Optional grouped sub-items for a category. When present, the detail page
+ * renders these labeled groups instead of a flat list. Categories without an
+ * entry here fall back to the flat `productsByCategory` list.
+ */
+export interface ProductGroup {
+  label: string;
+  items: string[];
+}
+
+export const productGroupsByCategory: Record<string, ProductGroup[]> = {
+  "plastic-polymer": [
+    {
+      label: "PVC Materials",
+      items: [
+        "Flexible Virgin PVC",
+        "PVC Cable Compound",
+        "PVC Foam Granules",
+        "PVC Injection Molding Granules",
+        "Transparent Rigid PVC Granules",
+        "UPVC Injection Molding",
+        "PVC Rod",
+        "PVC Welding Rod",
+      ],
+    },
+    {
+      label: "PP & TPE Materials",
+      items: [
+        "TPE Pellets",
+        "PP Rod",
+        "PP Welding Rod",
+        "Solid PP Sheet",
+        "PP Gray Panel",
+        "PP Roll Sheet",
+      ],
+    },
+    {
+      label: "Pipes & Fittings",
+      items: [
+        "HDPE DWC Pipes",
+        "HDPE Gas Pipe",
+        "PE100 HDPE Water Pipes",
+        "PP-R Pipes and Fittings",
+        "UPVC Water Supply and Drainage Pipes",
+      ],
+    },
+  ],
 };
 
 export function getProductsForCategory(slug: string): string[] {
   return productsByCategory[slug] ?? [];
+}
+
+export function getProductGroupsForCategory(slug: string): ProductGroup[] {
+  return productGroupsByCategory[slug] ?? [];
 }

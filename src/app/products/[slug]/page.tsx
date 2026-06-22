@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Reveal from "@/components/ui/Reveal";
 import { sectionCards, getSectionBySlug } from "@/data/sectionCards";
-import { getProductsForCategory } from "@/data/products";
+import { getProductsForCategory, getProductGroupsForCategory } from "@/data/products";
 import { companyInfo } from "@/data/companyInfo";
 
 /** Pre-render every category page at build time */
@@ -41,6 +41,7 @@ export default async function ProductCategoryPage({
   if (!category) notFound();
 
   const products = getProductsForCategory(slug);
+  const groups = getProductGroupsForCategory(slug);
   const hasProducts = products.length > 0;
 
   return (
@@ -97,17 +98,28 @@ export default async function ProductCategoryPage({
             </p>
           </Reveal>
 
-          {hasProducts ? (
+          {groups.length > 0 ? (
+            <div className="space-y-12">
+              {groups.map((group) => (
+                <div key={group.label}>
+                  <Reveal className="mb-5 flex items-center gap-3">
+                    <span className="h-5 w-1 rounded-full bg-blue-500" />
+                    <h3 className="text-lg font-bold tracking-tight text-white sm:text-xl">
+                      {group.label}
+                    </h3>
+                  </Reveal>
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    {group.items.map((name, i) => (
+                      <ProductPill key={name} name={name} index={i} />
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : hasProducts ? (
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {products.map((name, i) => (
-                <Reveal as="article" key={name} delay={(i % 4) * 0.05}>
-                  <div className="group flex h-full items-center gap-3 rounded-xl border border-white/10 bg-gradient-to-br from-[#0d2244] to-[#0a1628] p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-900/20">
-                    <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-600/15 text-blue-400 ring-1 ring-blue-500/20">
-                      <CubeIcon />
-                    </span>
-                    <span className="text-sm font-medium text-white">{name}</span>
-                  </div>
-                </Reveal>
+                <ProductPill key={name} name={name} index={i} />
               ))}
             </div>
           ) : (
@@ -149,6 +161,19 @@ export default async function ProductCategoryPage({
         </div>
       </section>
     </>
+  );
+}
+
+function ProductPill({ name, index }: { name: string; index: number }) {
+  return (
+    <Reveal as="article" delay={(index % 4) * 0.05}>
+      <div className="group flex h-full items-center gap-3 rounded-xl border border-white/10 bg-gradient-to-br from-[#0d2244] to-[#0a1628] p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-900/20">
+      <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-600/15 text-blue-400 ring-1 ring-blue-500/20">
+        <CubeIcon />
+      </span>
+      <span className="text-sm font-medium text-white">{name}</span>
+      </div>
+    </Reveal>
   );
 }
 

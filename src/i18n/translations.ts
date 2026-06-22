@@ -48,7 +48,7 @@ const en = {
       "Everything you need for global industrial trading and logistics — from sourcing to delivery.",
     products: {
       title: "Products",
-      desc: "Browse our full hardware & industrial catalogue — wire mesh, fencing, steel, safety gear, and more across 10 categories.",
+      desc: "Browse our full hardware & industrial catalogue — wire mesh, fencing, steel, safety gear, and more across 11 categories.",
       cta: "View Products",
     } as CardCopy,
     calculator: {
@@ -80,7 +80,7 @@ const en = {
     eyebrow: "Our Range",
     title: "Product Categories",
     subtitle:
-      "Ten core categories covering hardware, industrial, and construction supply.",
+      "Eleven core categories covering hardware, industrial, and construction supply.",
     cards: {
       "wire-mesh-fencing": { title: "Wire Mesh & Fencing", desc: "Durable mesh and fencing systems for security, agriculture, and construction sites." },
       "farm-tools": { title: "Farm Tools", desc: "Heavy-duty agricultural and groundwork hand tools built for daily field use." },
@@ -92,6 +92,7 @@ const en = {
       "ppgi": { title: "PPGI Steel Coils", desc: "Pre-painted galvanized steel coils in multiple colors for roofing, cladding, and appliances." },
       "crc": { title: "CRC Steel Coils", desc: "Cold-rolled steel coils with a smooth, precise finish for fabrication, automotive, and appliances." },
       "hrc": { title: "HRC Steel Coils", desc: "Hot-rolled steel coils for structural, fabrication, and heavy industrial applications." },
+      "plastic-polymer": { title: "Plastic & Polymer Materials", desc: "Industrial-grade plastic and polymer materials — PVC compounds, PP sheets, HDPE pipes, and engineered resins for manufacturing, construction, and infrastructure projects." },
     } as Record<string, { title: string; desc: string }>,
   },
   warehouses: {
@@ -119,7 +120,7 @@ const en = {
     price: { title: "Competitive Prices", desc: "Direct sourcing keeps pricing sharp." } as Point,
     intl: { title: "International Experience", desc: "International trading and supply expertise across worldwide markets." } as Point,
     support: { title: "Fast Support", desc: "Responsive coordination from inquiry to delivery." } as Point,
-    range: { title: "Broad Product Range", desc: "Ten categories under one roof." } as Point,
+    range: { title: "Broad Product Range", desc: "Eleven categories under one roof." } as Point,
   },
   about: {
     eyebrow: "About Us",
@@ -229,7 +230,7 @@ const ar: Dictionary = {
       "كل ما تحتاجه للتجارة الصناعية العالمية والخدمات اللوجستية — من التوريد إلى التسليم.",
     products: {
       title: "المنتجات",
-      desc: "تصفّح كتالوجنا الكامل من الأدوات والمواد الصناعية — الشبك والتسييج والحديد ومعدات السلامة وأكثر عبر 10 فئات.",
+      desc: "تصفّح كتالوجنا الكامل من الأدوات والمواد الصناعية — الشبك والتسييج والحديد ومعدات السلامة وأكثر عبر 11 فئة.",
       cta: "عرض المنتجات",
     },
     calculator: {
@@ -259,7 +260,7 @@ const ar: Dictionary = {
   products: {
     eyebrow: "تشكيلتنا",
     title: "فئات المنتجات",
-    subtitle: "عشر فئات أساسية تغطي الأدوات والمواد الصناعية والإنشائية.",
+    subtitle: "إحدى عشرة فئة أساسية تغطي الأدوات والمواد الصناعية والإنشائية.",
     cards: {
       "wire-mesh-fencing": { title: "الشبك والتسييج", desc: "أنظمة شبك وتسييج متينة للأمن والزراعة ومواقع البناء." },
       "farm-tools": { title: "الأدوات الزراعية", desc: "أدوات يدوية زراعية وأرضية متينة مصمّمة للاستخدام اليومي." },
@@ -298,7 +299,7 @@ const ar: Dictionary = {
     price: { title: "أسعار تنافسية", desc: "التوريد المباشر يحافظ على أسعار تنافسية." },
     intl: { title: "خبرة دولية", desc: "خبرة في التجارة والتوريد عبر الأسواق العالمية." },
     support: { title: "دعم سريع", desc: "تنسيق سريع الاستجابة من الاستفسار حتى التسليم." },
-    range: { title: "تشكيلة منتجات واسعة", desc: "عشر فئات تحت سقف واحد." },
+    range: { title: "تشكيلة منتجات واسعة", desc: "إحدى عشرة فئة تحت سقف واحد." },
   },
   about: {
     eyebrow: "من نحن",
@@ -404,7 +405,7 @@ const zh: Dictionary = {
     subtitle: "全球工业贸易与物流所需的一切——从采购到交付。",
     products: {
       title: "产品",
-      desc: "浏览我们完整的五金与工业产品目录——铁丝网、围栏、钢材、安全装备等，共 10 个类别。",
+      desc: "浏览我们完整的五金与工业产品目录——铁丝网、围栏、钢材、安全装备等，共 11 个类别。",
       cta: "查看产品",
     },
     calculator: {
@@ -434,7 +435,7 @@ const zh: Dictionary = {
   products: {
     eyebrow: "我们的系列",
     title: "产品类别",
-    subtitle: "十大核心类别，涵盖五金、工业和建筑供应。",
+    subtitle: "十一大核心类别，涵盖五金、工业和建筑供应。",
     cards: {
       "wire-mesh-fencing": { title: "铁丝网与围栏", desc: "适用于安防、农业和建筑工地的耐用网状和围栏系统。" },
       "farm-tools": { title: "农用工具", desc: "为日常田间使用打造的重型农业及土方手工具。" },
@@ -473,7 +474,7 @@ const zh: Dictionary = {
     price: { title: "有竞争力的价格", desc: "直接采购保持价格优势。" },
     intl: { title: "国际经验", desc: "在全球市场拥有贸易与供应专长。" },
     support: { title: "快速支持", desc: "从询价到交付的快速响应协调。" },
-    range: { title: "丰富的产品系列", desc: "十大类别，一站齐全。" },
+    range: { title: "丰富的产品系列", desc: "十一大类别，一站齐全。" },
   },
   about: {
     eyebrow: "关于我们",

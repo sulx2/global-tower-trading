@@ -60,6 +60,13 @@ export const sectionCards: SectionCard[] = [
     image: "/assets/images/sections/tools-equipment.png",
   },
   {
+    slug: "plastic-polymer",
+    title: "Plastic & Polymer Materials",
+    description:
+      "Industrial-grade plastic and polymer materials — PVC compounds, PP sheets, HDPE pipes, and engineered resins for manufacturing, construction, and infrastructure projects.",
+    image: "/assets/images/sections/plastic-polymer.png",
+  },
+  {
     slug: "steel-pipes-valves",
     title: "Steel Pipes & Valves",
     description:
